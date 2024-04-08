@@ -1,0 +1,91 @@
+### test function to count depth increases for small data size
+
+depth_list = [199,200,208,210,200,207,240,269,260,263]
+index = 0
+depth_change = 0
+
+for curr_depth in depth_list:
+    next_index = index + 1
+    if next_index > len(depth_list)-1: 
+        break
+        # index = 0
+        # next_index = 1
+        # len being 10
+        # exit loop if next_index > 9
+    if curr_depth < depth_list[next_index]:
+        depth_change += 1 # increment if next depth is higher than current depth
+    index += 1
+print(depth_change)        
+
+### Answer for Day 1 Part 1
+file = open("adventofcodeDay1.txt","r") # default directory is in "C:\Users\Lui Wei Jin\###" 
+
+# remove \n and convert to int before putting into a list
+all_lines = list(map(int,file.readlines()))
+#print(all_lines)
+
+
+### test function to count depth increases
+index = 0
+depth_change = 0
+
+for curr_depth in all_lines:
+    next_index = index + 1
+    if next_index > len(all_lines)-1: 
+        break
+        # index = 0
+        # next_index = 1
+        # len being 10
+        # exit loop if next_index > 9
+    if curr_depth < all_lines[next_index]:
+        depth_change += 1 # increment if next depth is higher than current depth
+    index += 1
+print("The number of increases in depth is", depth_change) # Correct ans is 1154
+file.close()
+
+# Answer for Day 2 Part 2
+file = open("adventofcodeDay1.txt","r") # default directory is in "C:\Users\Lui Wei Jin\###" 
+
+# remove \n and convert to int before putting into a list
+all_lines = list(map(int,file.readlines()))
+#print(all_lines)
+# count = 0
+# for i in all_lines:
+#     count += 1
+#print("The number of depths is:",count) # 2000 depths
+
+
+index1 = 0
+index2 = 0
+index3 = 0
+tri_lines = []
+
+# to create new list with the summed groups
+for i in all_lines:
+    index2 = index1 + 1
+    index3 = index1 + 2
+    if index3 > len(all_lines)-1: # do not continue if index3 > items, also prevents sum if less than 3 measurements
+        break 
+    three_num = all_lines[index1] + all_lines[index2] + all_lines[index3] # sum each three depth measurements in a group
+    tri_lines.append(three_num) 
+    index1 += 1 # sliding window i.e. 0+1+2, 1+2+3, 2+3+4
+
+# print(tri_lines)     
+# three_count = 0
+# for i in tri_lines:
+#     three_count += 1
+# print("The number of depths is:",three_count) # returns 1998 groups
+
+# compare for depth increases with each successive group
+index = 0
+depth_change = 0
+
+for curr_depth in tri_lines:
+    next_index = index + 1
+    if next_index > len(tri_lines)-1: # break the loop if next_index is more than number of items in list
+        break
+    if curr_depth < tri_lines[next_index]:
+        depth_change += 1 # increment if next depth is higher than current depth   
+    index += 1
+print("The number of depth increases for three summed measurements is:", depth_change) # Correct ans is 1127
+file.close()
